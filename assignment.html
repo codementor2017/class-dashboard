@@ -124,7 +124,7 @@
 </div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbygLCEi_K1YjWgdIy2iqhp5LyuXunK-9y32xUfF1NzuKOf_d5DWBh9SCH327YlCZsUzWg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzVR0n1BLstZhJak-Zb6Pr4QLQoMAfhuuCDhaHoDujEp3pqpDTyF89bY-6OysMVQWlMqw/exec';
 const PAGE_PASSWORD = '987987';
 
 /* ---- gate ---- */
@@ -243,7 +243,6 @@ function init() {
     if (isLate) {
       tr.dataset.computed = 'Late';
       cell.innerHTML = `<span class="submitted-date" style="color:#856404;">${today} (Late)</span>`;
-      // swap active class so it looks yellow
       tr.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active-submitted', 'active-nosub'));
       tr.querySelectorAll('.status-btn').forEach(b => {
         if (b.dataset.status === 'Submitted') b.classList.add('active-late');
@@ -306,9 +305,14 @@ function init() {
         submitBtn.disabled = false;
         return;
       }
-      msg.textContent = `Saved ${data.saved} records ✓`;
+      msg.textContent = `Saved ${data.saved} records ✓ Redirecting...`;
       msg.style.color = 'green';
-      setTimeout(reset, 1500);
+      
+      // REDIRECT TO INDEX.HTML AFTER 1.5 SECONDS
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+      
     } catch (e) {
       msg.textContent = 'Error: ' + e.message;
       msg.style.color = 'red';
